@@ -12,3 +12,6 @@ Features
   - Create users 
     - Save task lists / timer data to user profile
     
+API's
+  - Google Calendar (sync tasks to calendar)
+  - Auth0 or google's user authentication 
