@@ -16,8 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+
+def send_index(request):
+    index = open('static/index.html')
+    return HttpResponse(index)
 
 urlpatterns = [
+    path('', send_index),
     path('admin/', admin.site.urls),
-    path('', include('productivity_app.urls'))
+    path('user/', include('user_app.urls')),
+    path('tasks/', include('productivity_app.urls'))
 ]
