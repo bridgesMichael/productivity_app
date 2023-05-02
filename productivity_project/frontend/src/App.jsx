@@ -1,13 +1,15 @@
 import { createContext, useEffect, useState } from "react";
 import "./App.css";
-import { currUser, logOut } from "./utilities";
+import theme from "./theme";
+import { ThemeProvider } from "@mui/material";
+import { currUser } from "./utilities";
 import { getToken } from "./components/CsrfToken";
 import { Outlet } from "react-router-dom";
 import { NavBar } from "./components/NavBar";
 
 export const UserContext = createContext(null);
 
-function App() {
+export default function App() {
   const [user, setUser] = useState(null);
   getToken();
 
@@ -19,20 +21,15 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Task-Tok</h1>
-      {user && user.name && (
-        <>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <UserContext.Provider value={{ user, setUser }}>
           <NavBar />
-          <button onClick={() => logOut(setUser)}>Log Out</button>
-          <h2>Hello, {user.name}</h2>
-        </>
-      )}
-      <UserContext.Provider value={{ user, setUser }}>
-        <Outlet />
-      </UserContext.Provider>
-    </div>
+          <div className="main-content">
+            <Outlet />
+          </div>
+        </UserContext.Provider>
+      </div>
+    </ThemeProvider>
   );
 }
-
-export default App;

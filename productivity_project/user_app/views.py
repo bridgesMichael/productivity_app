@@ -27,6 +27,3 @@ def user_capabilities(request):
         return curr_user(request)
 
     
-def send_index(request):
-    index = open('static/index.html')
-    return HttpResponse(index)
